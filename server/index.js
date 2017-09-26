@@ -3,7 +3,8 @@ const morgan= require('morgan')
 const bodyParser = require('body-parser')
 const path = require('path')
 const app = express()
-const port = process.env.PORT || 3000
+const port = 3000
+module.exports = app
 
 app.use(morgan('dev'))
 app.use(bodyParser.json())
@@ -15,7 +16,7 @@ app.use(express.static(path.join(__dirname, '..', 'public'))) //static file-serv
 
 //if a path is given that is not in the api above then, then will be serve our index.html page from public folder
 app.use('*', (req, res) => {
-    res.sendFile(path.join(__dirname, '..', 'public', 'index.html'))
+    res.sendFile(path.join(__dirname, '..', 'public/index.html'))
 })
 
 //if internal server error (500 error), then this will catch it; always provided at the last
@@ -28,4 +29,3 @@ app.use((err, req, res, next) => {
 //app will listen for requests on port 1337
 app.listen(port, () => console.log(`App is listening on port ${port}`))
 
-module.exports = app
